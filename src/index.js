@@ -8,6 +8,8 @@ const io = new Server(httpServer, {
   cors: { origin: process.env.FRONTEND_URL },
 });
 
+app.get("/", (req, res) => res.send("socket.io server"));
+
 io.use((socket, next) => {
   socket.join(["general", "anime", "india"]);
   const username = socket.handshake.auth.username;
