@@ -5,7 +5,12 @@ import { createServer } from "node:http";
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
-  cors: { origin: process.env.FRONTEND_URL },
+  cors: {
+    origin:
+      process.env.NODE_ENV == "production"
+        ? process.env.PROD_FRONTEND_URL
+        : process.env.DEV_FRONTEND_URL,
+  },
 });
 
 app.get("/", (req, res) => res.send("socket.io server"));
