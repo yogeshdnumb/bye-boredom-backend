@@ -1,8 +1,7 @@
-import "dotenv";
+import "dotenv/config";
 import express from "express";
 import { Server } from "socket.io";
 import { createServer } from "node:http";
-
 const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
@@ -20,11 +19,11 @@ io.use((socket, next) => {
 });
 
 io.on("connection", (socket) => {
-  // console.log(`${socket.id.substring(0, 4)} connected`);
+  console.log(`${socket.id.substring(0, 4)} connected`);
 
   // to is roomId
   socket.on("message", ({ text, from, to, isRoom }) => {
-    // console.log({ from, to, text, isRoom });
+    console.log({ from, to, text, isRoom });
     socket.to(to).emit("message", {
       text,
       username: socket.username,
